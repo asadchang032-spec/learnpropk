@@ -1222,6 +1222,102 @@ function closeVM(){
 
 
 // ── Review Submit
+var SHEET_URL = 'https://script.google.com/macros/s/AKfycbxD0xOA3yKPUffoFP5Rk9y0UhsNu5DCFdIJcfze5AaZB4vA-mOb_8hxxoP3iy3nMyaGhw/exec';
+var avatarColors=['#c8102e','#1565c0','#006d4c','#b8861c','#6a1b9a','#2e7d32','#d4380d','#0a4a9e'];
+var loadedReviews=[];
+
+// ── Load reviews from Google Sheet
+function loadReviews(){
+  fetch(SHEET_URL)
+    .then(function(r){return r.json();})
+    .then(function(data){
+      var container=document.getElementById('dynReviews');
+      if(!container)return;
+      // Only add new ones
+      var newOnes=data.filter(function(r){
+        return !loadedReviews.find(function(l){return l.name===r.name&&l.review===r.review;});
+      });
+      newOnes.forEach(function(r){
+        loadedReviews.push(r);
+        var card=buildCard(r,false);
+        container.appendChild(card);
+      });
+    })
+    .catch(function(){});
+}
+
+function buildCard(r, isNew){
+  var stars=parseInt(r.stars)||5;
+  var starStr='';
+  for(var i=0;i<stars;i++)starStr+='&#9733;';
+  for(var j=stars;j<5;j++)starStr+='&#9734;';
+  var color=avatarColors[Math.floor(Math.random()*avatarColors.length)];
+  var card=document.createElement('div');
+  card.className='dyn-card';
+  card.innerHTML=
+    '<div class="dyn-top">'
+    +'<div class="dyn-av" style="background:'+color+'">'+(r.name||'?').charAt(0).toUpperCase()+'</div>'
+    +'<div><div class="dyn-name">'+(r.name||'')+'</div>'
+    +'<div class="dyn-course">'+(r.course||'')+'</div></div></div>'
+    +'<div class="dyn-stars">'+starStr+'</div>'
+    +'<div class="dyn-text">'+(r.review||'')+'</div>'
+    +'<div class="rc-verified">&#10003; Verified Student'+(r.city?' &mdash; '+r.city:'')+'</div>'
+    +(isNew?'<div class="dyn-new">&#128293; Just submitted</div>':'');
+  return card;
+}
+
+// ── Submit review to Google Sheet
+function submitReview(){
+  var name=document.getElementById('rfName').value.trim();
+  var city=document.getElementById('rfCity').value.trim();
+  var course=document.getElementById('rfCourse').value;
+  var text=document.getElementById('rfText').value.trim();
+  var starEl=document.querySelector('input[name="star"]:checked');
+  var stars=starEl?parseInt(starEl.value):0;
+  if(!name){alert('Please enter your name.');return;}
+  if(!course){alert('Please select a course.');return;}
+  if(!stars){alert('Please select a star rating.');return;}
+  if(text.length<20){alert('Please write at least 20 characters.');return;}
+
+  // Show loading
+  var btn=document.querySelector('.rf-submit');
+  btn.textContent='Submitting...';btn.disabled=true;
+
+  var payload={name:name,city:city,course:course,stars:stars,review:text,date:new Date().toLocaleDateString('en-PK')};
+
+  fetch(SHEET_URL,{method:'POST',body:JSON.stringify(payload)})
+    .then(function(){
+      // Show success
+      document.getElementById('rfBody').style.display='none';
+      document.getElementById('rfSuccess').style.display='block';
+      // Add card instantly
+      var card=buildCard(payload,true);
+      document.getElementById('dynReviews').prepend(card);
+      loadedReviews.push(payload);
+      // Reset after 4s
+      setTimeout(function(){
+        document.getElementById('rfBody').style.display='block';
+        document.getElementById('rfSuccess').style.display='none';
+        document.getElementById('rfName').value='';
+        document.getElementById('rfCity').value='';
+        document.getElementById('rfCourse').value='';
+        document.getElementById('rfText').value='';
+        document.querySelectorAll('input[name="star"]').forEach(function(r){r.checked=false;});
+        btn.textContent='\u2713 Submit My Review';btn.disabled=false;
+      },4000);
+    })
+    .catch(function(){
+      alert('Error submitting. Please try again.');
+      btn.textContent='\u2713 Submit My Review';btn.disabled=false;
+    });
+}
+
+// Load on page start
+loadReviews();
+// Auto refresh every 30 seconds
+setInterval(loadReviews, 30000);
+
+// ── Review Submit
 var avatarColors=['#c8102e','#1565c0','#006d4c','#b8861c','#6a1b9a','#2e7d32','#d4380d','#0a4a9e'];
 function randomColor(){return avatarColors[Math.floor(Math.random()*avatarColors.length)];}
 function submitReview(){
