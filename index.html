@@ -48,10 +48,10 @@ a { text-decoration:none; }
 
 /* ─── NAV ─── */
 nav {
-  position:fixed; top:0; left:0; right:0; z-index:1000;
+  position:fixed; top:48px; left:0; right:0; z-index:1000;
   height:68px; padding:0 5%;
   display:flex; align-items:center; justify-content:space-between;
-  transition:background .4s, box-shadow .4s;
+  transition:background .4s, box-shadow .4s, top .3s;
 }
 nav.s {
   background:rgba(250,249,247,.97);
@@ -114,7 +114,7 @@ nav.s .nav-ul a { color:var(--t2); }
 .hero-wrap {
   position:relative; z-index:2;
   max-width:1200px; margin:0 auto; width:100%;
-  padding:110px 5% 90px;
+  padding:140px 5% 90px;
   display:grid; grid-template-columns:1fr 340px; gap:56px; align-items:center;
 }
 
@@ -411,7 +411,7 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
   .nav-ul, .nav-enroll { display:none; }
   .hbg { display:flex; color:#fff; }
   nav.s .hbg { color:var(--text); }
-  nav.open .nav-ul { display:flex; flex-direction:column; position:fixed; top:68px; left:0; right:0; background:rgba(250,249,247,.98); padding:22px 5%; border-bottom:1px solid var(--bdr); }
+  nav.open .nav-ul { display:flex; flex-direction:column; position:fixed; top:116px; left:0; right:0; background:rgba(250,249,247,.98); padding:22px 5%; border-bottom:1px solid var(--bdr); }
   nav.open .nav-ul a { color:var(--t2); }
   nav.open .nav-enroll { display:block; margin-top:10px; text-align:center; }
   .mfoot { flex-direction:column; text-align:center; }
@@ -425,8 +425,11 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
   animation:cdBg 4s ease infinite;
   color:#fff;text-align:center;
   padding:10px 5%;font-size:13px;font-weight:600;
-  letter-spacing:.3px;position:relative;z-index:999;
+  letter-spacing:.3px;
+  position:fixed;top:0;left:0;right:0;
+  z-index:1001;
   display:flex;align-items:center;justify-content:center;gap:12px;
+  height:48px;
 }
 @keyframes cdBg{0%,100%{background-position:0%;}50%{background-position:100%;}}
 .cd-label{opacity:.85;font-size:12px;letter-spacing:1px;text-transform:uppercase;}
@@ -537,7 +540,7 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
 
 /* ════════ PROGRESS BAR (page scroll) ════════ */
 .scroll-prog{
-  position:fixed;top:0;left:0;height:2px;
+  position:fixed;top:48px;left:0;height:2px;
   background:linear-gradient(90deg,var(--red),var(--gold3));
   z-index:9999;width:0%;transition:width .1s linear;
 }
@@ -575,6 +578,67 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
 .vbox-cls:hover{color:#fff;}
 .video-frame{position:relative;padding-bottom:56.25%;height:0;}
 .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+
+/* ════════ REVIEW SUBMIT FORM ════════ */
+.review-form-wrap{
+  margin-top:48px;
+  background:var(--white);border-radius:var(--r);
+  border:1.5px solid var(--bdr);box-shadow:var(--sh);
+  overflow:hidden;
+}
+.rfh{
+  background:linear-gradient(135deg,var(--red),#8b0a1c);
+  padding:24px 32px;
+  display:flex;align-items:center;gap:16px;
+}
+.rfh-icon{font-size:28px;}
+.rfh-title{font-family:var(--fd);font-size:22px;font-weight:800;color:#fff;letter-spacing:-.3px;}
+.rfh-sub{font-size:12px;color:rgba(255,255,255,.65);margin-top:2px;}
+.rfb{padding:32px;}
+.rf-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.rf-grp{margin-bottom:0;}
+.rf-grp.full{grid-column:1/-1;}
+.rf-lbl{font-size:10px;font-weight:700;color:var(--t3);letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;display:block;}
+.rf-inp,.rf-sel,.rf-txt{width:100%;padding:12px 15px;border:1.5px solid var(--bdr);border-radius:9px;font-family:var(--fb);font-size:14px;color:var(--text);background:var(--off);transition:border-color .2s,background .2s;outline:none;appearance:none;}
+.rf-inp:focus,.rf-sel:focus,.rf-txt:focus{border-color:var(--red);background:var(--white);}
+.rf-inp::placeholder,.rf-txt::placeholder{color:var(--t3);}
+.rf-txt{resize:vertical;min-height:110px;}
+/* Star rating picker */
+.star-picker{display:flex;flex-direction:row-reverse;justify-content:flex-end;gap:4px;margin-top:4px;}
+.star-picker input{display:none;}
+.star-picker label{font-size:28px;color:#ddd;cursor:pointer;transition:color .15s;line-height:1;}
+.star-picker input:checked ~ label,
+.star-picker label:hover,
+.star-picker label:hover ~ label{color:#f5a623;}
+.rf-submit{
+  width:100%;padding:15px;
+  background:var(--red);color:#fff;border:none;border-radius:50px;
+  font-size:13px;font-weight:700;cursor:pointer;font-family:var(--fb);
+  transition:all .3s;letter-spacing:.8px;text-transform:uppercase;
+  box-shadow:0 5px 18px rgba(200,16,46,.28);margin-top:20px;
+}
+.rf-submit:hover{background:var(--red2);transform:translateY(-1px);box-shadow:0 10px 26px rgba(200,16,46,.4);}
+.rf-success{
+  display:none;text-align:center;padding:32px;
+}
+.rf-success-icon{font-size:52px;margin-bottom:14px;}
+.rf-success-title{font-family:var(--fd);font-size:24px;font-weight:800;color:var(--text);margin-bottom:8px;}
+.rf-success-sub{font-size:14px;color:var(--t3);line-height:1.7;}
+/* Dynamic reviews */
+.dynamic-reviews{margin-top:20px;display:flex;flex-direction:column;gap:14px;}
+.dyn-card{
+  background:var(--off);border-radius:var(--r);padding:20px 22px;
+  border:1.5px solid var(--bdr);
+  animation:slideInR .4s ease;
+}
+@keyframes slideInR{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.dyn-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.dyn-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#fff;flex-shrink:0;font-family:var(--fd);}
+.dyn-name{font-size:14px;font-weight:700;color:var(--text);}
+.dyn-course{font-size:11px;color:var(--t3);margin-top:1px;}
+.dyn-stars{font-size:13px;color:#f5a623;letter-spacing:1px;margin-bottom:7px;}
+.dyn-text{font-size:13px;color:var(--t2);line-height:1.75;font-weight:300;}
+.dyn-new{font-size:10px;color:var(--red);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:8px;}
 </style>
 </head>
 <body>
@@ -594,7 +658,7 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
     <div class="cd-block"><span class="cd-num" id="cdS">00</span><span class="cd-unit">Sec</span></div>
   </div>
   <span style="font-size:12px;opacity:.8">Save up to <strong>30%</strong> today!</span>
-  <button class="cd-close" onclick="document.getElementById('cdb').style.display='none'">&#10005;</button>
+  <button class="cd-close" onclick="var b=document.getElementById('cdb');b.style.display='none';document.getElementById('nav').style.top='0';">&#10005;</button>
 </div>
 
 <!-- SCROLL PROGRESS -->
@@ -948,7 +1012,10 @@ var c1=document.getElementById("cur"),c2=document.getElementById("cur2");
 document.addEventListener("mousemove",function(e){c1.style.left=e.clientX+"px";c1.style.top=e.clientY+"px";c2.style.left=e.clientX+"px";c2.style.top=e.clientY+"px";});
 
 // Nav scroll
-window.addEventListener("scroll",function(){document.getElementById("nav").classList.toggle("s",window.scrollY>50);});
+window.addEventListener("scroll",function(){
+  var nav=document.getElementById("nav");
+  nav.classList.toggle("s",window.scrollY>50);
+});
 
 // Slideshow
 var sls=document.querySelectorAll(".sl"),sc=0,hd=document.getElementById("hd"),hn=document.getElementById("hn");
@@ -1095,6 +1162,61 @@ function closeVM(){
   document.getElementById('vmov').classList.remove('open');
   document.getElementById('vframe').src='';
   document.body.style.overflow='';
+}
+
+
+
+// ── Review Submit
+var avatarColors=['#c8102e','#1565c0','#006d4c','#b8861c','#6a1b9a','#2e7d32','#d4380d','#0a4a9e'];
+function randomColor(){return avatarColors[Math.floor(Math.random()*avatarColors.length)];}
+function submitReview(){
+  var name=document.getElementById('rfName').value.trim();
+  var city=document.getElementById('rfCity').value.trim();
+  var course=document.getElementById('rfCourse').value;
+  var text=document.getElementById('rfText').value.trim();
+  var starEl=document.querySelector('input[name="star"]:checked');
+  var stars=starEl?parseInt(starEl.value):0;
+
+  if(!name){alert('Please enter your name.');return;}
+  if(!course){alert('Please select a course.');return;}
+  if(!stars){alert('Please select a star rating.');return;}
+  if(text.length<20){alert('Please write at least 20 characters in your review.');return;}
+
+  // Show success
+  document.getElementById('rfBody').style.display='none';
+  document.getElementById('rfSuccess').style.display='block';
+
+  // Build star string
+  var starStr='';
+  for(var i=0;i<stars;i++)starStr+='&#9733;';
+  for(var j=stars;j<5;j++)starStr+='&#9734;';
+
+  // Add card
+  var initial=name.charAt(0).toUpperCase();
+  var color=randomColor();
+  var loc=city?city:'Pakistan';
+  var card=document.createElement('div');
+  card.className='dyn-card';
+  card.innerHTML='<div class="dyn-top">'
+    +'<div class="dyn-av" style="background:'+color+'">'+initial+'</div>'
+    +'<div><div class="dyn-name">'+name+'</div><div class="dyn-course">'+course+'</div></div>'
+    +'</div>'
+    +'<div class="dyn-stars">'+starStr+'</div>'
+    +'<div class="dyn-text">'+text+'</div>'
+    +'<div class="rc-verified">&#10003; Verified Student &mdash; '+loc+'</div>'
+    +'<div class="dyn-new">&#128293; Just submitted</div>';
+  document.getElementById('dynReviews').prepend(card);
+
+  // Reset after 4 sec for another review
+  setTimeout(function(){
+    document.getElementById('rfBody').style.display='block';
+    document.getElementById('rfSuccess').style.display='none';
+    document.getElementById('rfName').value='';
+    document.getElementById('rfCity').value='';
+    document.getElementById('rfCourse').value='';
+    document.getElementById('rfText').value='';
+    document.querySelectorAll('input[name="star"]').forEach(function(r){r.checked=false;});
+  },4000);
 }
 
 </script>
