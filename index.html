@@ -1,372 +1,575 @@
 <!DOCTYPE html>
-<html lang="ur" dir="ltr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="LearnPro PK - Pakistan ka No.1 Online Course Platform. YouTube, Forex, Crypto, E-Commerce, Marketing courses Urdu mein.">
-<meta name="keywords" content="online courses pakistan, urdu courses, youtube course, forex course, crypto course, ecommerce course, digital marketing course">
-<title>LearnPro PK — Urdu Online Courses</title>
+<meta name="description" content="LearnPro PK by Asadullah Chang — Pakistan's No.1 Online Course Platform. YouTube, Forex, Crypto, E-Commerce, Marketing in Urdu.">
+<title>LearnPro PK — Asadullah Chang</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --brand: #1a1a2e;
-  --accent: #e94560;
-  --accent2: #0f3460;
-  --gold: #f5a623;
-  --white: #ffffff;
-  --light: #f8f9ff;
-  --gray: #6b7280;
-  --dark: #111827;
-  --card-bg: #ffffff;
-  --border: rgba(0,0,0,0.08);
-  --shadow: 0 4px 24px rgba(26,26,46,0.10);
-  --shadow-lg: 0 12px 48px rgba(26,26,46,0.18);
-  --radius: 16px;
-  --radius-sm: 8px;
+:root{
+  --ink:#0a0812;
+  --ink2:#13101e;
+  --surface:#f7f5f2;
+  --accent:#c8102e;
+  --accent2:#ff3d5a;
+  --gold:#c9a84c;
+  --gold2:#f0d080;
+  --mist:rgba(255,255,255,0.06);
+  --border:rgba(255,255,255,0.08);
+  --r:16px;
+  --font-display:"Cormorant Garamond",serif;
+  --font-body:"Outfit",sans-serif;
 }
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Sora', sans-serif;
-  background: var(--light);
-  color: var(--dark);
-  overflow-x: hidden;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{font-family:var(--font-body);background:var(--ink);color:#fff;overflow-x:hidden;cursor:none;}
+
+/* ── CUSTOM CURSOR ── */
+.cursor{position:fixed;width:8px;height:8px;background:var(--accent2);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s,width .2s,height .2s;}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(255,61,90,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .12s ease,width .2s,height .2s;}
+body:hover .cursor{opacity:1;}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--ink);}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px;}
 
 /* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: rgba(26,26,46,0.96);
-  backdrop-filter: blur(16px);
-  padding: 0 5%;
-  display: flex; align-items: center; justify-content: space-between;
-  height: 64px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:0 5%;height:72px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background .4s,backdrop-filter .4s;
 }
-.nav-logo {
-  font-size: 22px; font-weight: 700; color: var(--white);
-  text-decoration: none; letter-spacing: -0.5px;
+nav.scrolled{background:rgba(10,8,18,0.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
+.nav-logo{
+  font-family:var(--font-display);font-size:28px;font-weight:600;
+  color:#fff;text-decoration:none;letter-spacing:-0.5px;
+  position:relative;
 }
-.nav-logo span { color: var(--accent); }
-.nav-links { display: flex; gap: 28px; list-style: none; }
-.nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; font-weight: 400; transition: color 0.2s; }
-.nav-links a:hover { color: var(--white); }
-.nav-cta {
-  background: var(--accent); color: var(--white);
-  padding: 9px 20px; border-radius: 50px;
-  text-decoration: none; font-size: 13px; font-weight: 600;
-  transition: transform 0.2s, box-shadow 0.2s;
+.nav-logo::after{
+  content:"";position:absolute;bottom:-3px;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--accent),var(--gold),transparent);
+  transform:scaleX(0);transform-origin:left;transition:transform .4s;
 }
-.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(233,69,96,0.4); }
-.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-.hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+.nav-logo:hover::after{transform:scaleX(1);}
+.nav-logo .pk{color:var(--gold);}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{
+  color:rgba(255,255,255,.55);text-decoration:none;font-size:13px;
+  font-weight:500;letter-spacing:.5px;text-transform:uppercase;
+  transition:color .2s;position:relative;
+}
+.nav-links a::after{content:"";position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--accent);transition:width .3s;}
+.nav-links a:hover{color:#fff;}
+.nav-links a:hover::after{width:100%;}
+.nav-cta{
+  padding:10px 24px;border-radius:50px;
+  background:transparent;border:1px solid var(--accent);
+  color:var(--accent);font-size:13px;font-weight:600;
+  text-decoration:none;letter-spacing:.5px;text-transform:uppercase;
+  transition:all .3s;
+}
+.nav-cta:hover{background:var(--accent);color:#fff;box-shadow:0 0 30px rgba(200,16,46,.4);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+.hamburger span{width:22px;height:1.5px;background:#fff;border-radius:1px;transition:all .3s;}
 
 /* ── HERO ── */
-.hero {
-  min-height: 100vh;
-  background: var(--brand);
-  display: flex; align-items: center;
-  position: relative; overflow: hidden;
-  padding: 100px 5% 60px;
+.hero{
+  min-height:100vh;position:relative;
+  display:flex;align-items:center;
+  overflow:hidden;
 }
-.hero-bg {
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(233,69,96,0.12) 0%, transparent 70%),
-              radial-gradient(ellipse 60% 80% at 20% 80%, rgba(15,52,96,0.4) 0%, transparent 60%);
+/* Layered atmospheric background */
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(200,16,46,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 80% at 80% 20%, rgba(201,168,76,0.07) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 40% at 60% 80%, rgba(200,16,46,0.06) 0%, transparent 50%),
+    linear-gradient(160deg, #0f0c1a 0%, #0a0812 40%, #0d0a16 100%);
 }
-.hero-grid {
-  position: absolute; inset: 0; opacity: 0.04;
-  background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
-  background-size: 60px 60px;
+/* Animated grid lines */
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size:80px 80px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
 }
-.hero-content { position: relative; z-index: 1; max-width: 620px; }
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(233,69,96,0.15); border: 1px solid rgba(233,69,96,0.3);
-  color: #ff8fa3; padding: 6px 14px; border-radius: 50px;
-  font-size: 12px; font-weight: 500; margin-bottom: 24px; letter-spacing: 0.5px;
+/* Floating orbs */
+.orb{
+  position:absolute;border-radius:50%;filter:blur(80px);
+  animation:orbFloat ease-in-out infinite;pointer-events:none;
 }
-.hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
-.hero h1 {
-  font-size: clamp(36px, 6vw, 64px);
-  font-weight: 700; color: var(--white);
-  line-height: 1.1; letter-spacing: -1.5px;
-  margin-bottom: 12px;
-}
-.hero h1 span { color: var(--accent); }
-.hero-urdu {
-  font-family: 'Noto Nastaliq Urdu', serif;
-  font-size: clamp(18px, 3vw, 26px);
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 20px; direction: rtl;
-}
-.hero p {
-  font-size: 16px; color: rgba(255,255,255,0.6);
-  line-height: 1.7; margin-bottom: 36px; max-width: 480px;
-}
-.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
-.btn-primary {
-  background: var(--accent); color: var(--white);
-  padding: 14px 28px; border-radius: 50px;
-  text-decoration: none; font-weight: 600; font-size: 15px;
-  transition: all 0.25s; border: none; cursor: pointer;
-  display: inline-flex; align-items: center; gap: 8px;
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(233,69,96,0.5); }
-.btn-wa {
-  background: #25D366; color: var(--white);
-  padding: 14px 24px; border-radius: 50px;
-  text-decoration: none; font-weight: 600; font-size: 15px;
-  display: inline-flex; align-items: center; gap: 8px;
-  transition: all 0.25s;
-}
-.btn-wa:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.4); }
-.btn-fb {
-  background: #1877F2; color: var(--white);
-  padding: 14px 24px; border-radius: 50px;
-  text-decoration: none; font-weight: 600; font-size: 15px;
-  display: inline-flex; align-items: center; gap: 8px;
-  transition: all 0.25s;
-}
-.btn-fb:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(24,119,242,0.4); }
-.hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
-.stat { }
-.stat-num { font-size: 28px; font-weight: 700; color: var(--white); line-height: 1; }
-.stat-num span { color: var(--accent); }
-.stat-label { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 4px; letter-spacing: 0.3px; }
+.orb1{width:500px;height:500px;background:rgba(200,16,46,.08);top:-100px;left:-100px;animation-duration:20s;}
+.orb2{width:400px;height:400px;background:rgba(201,168,76,.05);top:20%;right:-80px;animation-duration:25s;animation-delay:-8s;}
+.orb3{width:300px;height:300px;background:rgba(200,16,46,.06);bottom:10%;left:30%;animation-duration:18s;animation-delay:-5s;}
+@keyframes orbFloat{0%,100%{transform:translate(0,0);}33%{transform:translate(30px,-40px);}66%{transform:translate(-20px,30px);}}
 
-/* ── SECTION ── */
-section { padding: 80px 5%; }
-.section-label {
-  font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 12px;
+/* Scanlines texture */
+.hero-scanlines{
+  position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);
 }
-.section-title {
-  font-size: clamp(28px, 4vw, 42px); font-weight: 700;
-  color: var(--dark); letter-spacing: -0.5px; margin-bottom: 8px;
+.hero-content{
+  position:relative;z-index:2;
+  max-width:1200px;margin:0 auto;padding:0 5%;
+  width:100%;padding-top:72px;
 }
-.section-sub { font-size: 16px; color: var(--gray); margin-bottom: 48px; }
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-bottom:28px;
+}
+.hero-eyebrow-line{width:40px;height:1px;background:linear-gradient(90deg,var(--accent),var(--gold));}
+.hero-eyebrow-text{
+  font-size:11px;font-weight:500;letter-spacing:3px;
+  text-transform:uppercase;color:rgba(255,255,255,.4);
+}
+/* BIG TITLE with glow */
+.hero-title{
+  font-family:var(--font-display);
+  font-size:clamp(72px,12vw,148px);
+  font-weight:600;line-height:.9;
+  letter-spacing:-4px;
+  margin-bottom:8px;
+  position:relative;
+}
+.hero-title .word1{
+  display:block;color:#fff;
+  text-shadow:0 0 80px rgba(255,255,255,.1);
+  animation:fadeUp .8s ease both;
+}
+.hero-title .word2{
+  display:block;
+  color:transparent;
+  -webkit-text-stroke:1.5px var(--gold);
+  text-shadow:0 0 60px rgba(201,168,76,.3);
+  animation:fadeUp .8s .15s ease both;
+}
+.hero-title .word3{
+  display:block;color:var(--accent);
+  text-shadow:0 0 60px rgba(200,16,46,.4),0 0 120px rgba(200,16,46,.15);
+  animation:fadeUp .8s .3s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 
-/* ── FILTER ── */
-.filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
-.filter-btn {
-  padding: 8px 18px; border-radius: 50px;
-  border: 1.5px solid var(--border);
-  background: var(--white); color: var(--gray);
-  font-size: 13px; font-weight: 500; cursor: pointer;
-  transition: all 0.2s; font-family: 'Sora', sans-serif;
+.hero-sub-row{
+  display:flex;align-items:flex-end;gap:60px;
+  margin-top:40px;
 }
-.filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-.filter-btn.active { background: var(--accent); color: var(--white); border-color: var(--accent); }
+.hero-desc{
+  max-width:420px;font-size:15px;
+  color:rgba(255,255,255,.45);line-height:1.85;
+  font-weight:300;letter-spacing:.1px;
+  animation:fadeUp .8s .45s ease both;
+}
+.hero-desc strong{color:rgba(255,255,255,.75);font-weight:500;}
+.hero-actions{
+  display:flex;gap:14px;flex-wrap:wrap;
+  animation:fadeUp .8s .6s ease both;
+  margin-top:32px;
+}
+.btn-hero{
+  padding:15px 32px;border-radius:50px;
+  font-size:13px;font-weight:600;
+  text-decoration:none;letter-spacing:.8px;
+  text-transform:uppercase;transition:all .3s;
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-body);
+}
+.btn-hero-primary{
+  background:var(--accent);color:#fff;
+  box-shadow:0 8px 32px rgba(200,16,46,.4),0 0 0 0 rgba(200,16,46,.3);
+  animation:btnPulse 3s 2s ease infinite;
+}
+@keyframes btnPulse{0%,100%{box-shadow:0 8px 32px rgba(200,16,46,.4),0 0 0 0 rgba(200,16,46,.3);}50%{box-shadow:0 8px 32px rgba(200,16,46,.4),0 0 0 10px rgba(200,16,46,0);}}
+.btn-hero-primary:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(200,16,46,.55);}
+.btn-hero-ghost{
+  background:transparent;color:#fff;
+  border:1px solid rgba(255,255,255,.18);
+}
+.btn-hero-ghost:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.35);}
+.btn-hero-wa{background:#25D366;color:#fff;box-shadow:0 8px 24px rgba(37,211,102,.3);}
+.btn-hero-wa:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(37,211,102,.45);}
 
-/* ── GRID ── */
-.courses-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
+/* STATS ROW */
+.hero-stats{
+  display:flex;gap:0;margin-top:64px;
+  border-top:1px solid var(--border);
+  animation:fadeUp .8s .75s ease both;
 }
-.course-card {
-  background: var(--card-bg); border-radius: var(--radius);
-  border: 1px solid var(--border); overflow: hidden;
-  transition: transform 0.25s, box-shadow 0.25s;
-  cursor: pointer;
+.hero-stat{
+  flex:1;padding:28px 0 0;
+  border-right:1px solid var(--border);
+  padding-right:32px;margin-right:32px;
 }
-.course-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-.card-thumb {
-  height: 160px; display: flex; align-items: center; justify-content: center;
-  font-size: 48px; position: relative; overflow: hidden;
+.hero-stat:last-child{border-right:none;}
+.hero-stat-num{
+  font-family:var(--font-display);font-size:42px;font-weight:600;
+  color:#fff;line-height:1;margin-bottom:6px;
+  background:linear-gradient(135deg,#fff,rgba(255,255,255,.6));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
 }
-.card-thumb::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.15));
-}
-.card-body { padding: 20px 20px 22px; }
-.card-cat {
-  font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
-  margin-bottom: 8px;
-}
-.card-title { font-size: 17px; font-weight: 600; color: var(--dark); margin-bottom: 8px; line-height: 1.3; }
-.card-desc { font-size: 13px; color: var(--gray); line-height: 1.6; margin-bottom: 16px; }
-.card-footer { display: flex; align-items: center; justify-content: space-between; }
-.card-price { font-size: 20px; font-weight: 700; }
-.card-btn {
-  padding: 8px 16px; border-radius: 50px;
-  font-size: 12px; font-weight: 600;
-  border: none; cursor: pointer; transition: all 0.2s;
-  font-family: 'Sora', sans-serif;
-}
+.hero-stat-num .gold{background:linear-gradient(135deg,var(--gold2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-stat-label{font-size:11px;color:rgba(255,255,255,.3);letter-spacing:1.5px;text-transform:uppercase;font-weight:500;}
 
-/* ── MODAL ── */
-.modal-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(8px);
-  z-index: 2000; display: none;
-  align-items: center; justify-content: center; padding: 20px;
+/* ── SECTION BASE ── */
+.section{padding:100px 5%;}
+.section-inner{max-width:1200px;margin:0 auto;}
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+.eyebrow-text{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--accent);}
+.section-h{
+  font-family:var(--font-display);
+  font-size:clamp(36px,5vw,60px);font-weight:600;
+  line-height:1.05;letter-spacing:-1.5px;margin-bottom:12px;
 }
-.modal-overlay.open { display: flex; }
-.modal {
-  background: var(--white); border-radius: 20px;
-  width: 100%; max-width: 520px;
-  overflow: hidden; box-shadow: var(--shadow-lg);
-  animation: slideUp 0.3s ease;
-}
-@keyframes slideUp { from{transform:translateY(30px);opacity:0} to{transform:translateY(0);opacity:1} }
-.modal-video {
-  height: 220px; background: #0d0d1a;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
-  position: relative;
-}
-.play-ring {
-  width: 60px; height: 60px; border-radius: 50%;
-  background: rgba(233,69,96,0.2); border: 2px solid rgba(233,69,96,0.5);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: all 0.2s;
-}
-.play-ring:hover { background: rgba(233,69,96,0.35); transform: scale(1.08); }
-.play-tri { width:0; height:0; border-top:12px solid transparent; border-bottom:12px solid transparent; border-left:20px solid var(--accent); margin-left:4px; }
-.modal-demo-label { font-size: 12px; color: rgba(255,255,255,0.45); }
-.modal-close {
-  position: absolute; top: 12px; right: 12px;
-  width: 32px; height: 32px; border-radius: 50%;
-  background: rgba(255,255,255,0.1); border: none; cursor: pointer;
-  color: rgba(255,255,255,0.7); font-size: 18px; display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s;
-}
-.modal-close:hover { background: rgba(255,255,255,0.2); }
-.modal-body { padding: 24px; }
-.modal-cat { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
-.modal-title { font-size: 22px; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
-.modal-desc { font-size: 14px; color: var(--gray); line-height: 1.7; margin-bottom: 20px; }
-.modal-includes { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-.include-tag {
-  background: #f3f4f6; color: #374151;
-  padding: 5px 10px; border-radius: 50px; font-size: 12px;
-}
-.modal-footer {
-  border-top: 1px solid var(--border); padding: 20px 24px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.modal-price { font-size: 28px; font-weight: 700; color: var(--dark); }
-.modal-price small { font-size: 13px; color: var(--gray); font-weight: 400; display: block; margin-bottom: 2px; }
-.pay-methods-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
-.pay-tag { font-size: 11px; padding: 3px 8px; border-radius: 50px; border: 1px solid var(--border); color: var(--gray); }
-.buy-btn {
-  background: var(--accent); color: var(--white);
-  padding: 14px 24px; border-radius: 50px;
-  border: none; cursor: pointer; font-size: 14px; font-weight: 700;
-  transition: all 0.2s; font-family: 'Sora', sans-serif;
-  white-space: nowrap;
-}
-.buy-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(233,69,96,0.4); }
+.section-sub{font-size:15px;color:rgba(255,255,255,.4);font-weight:300;margin-bottom:56px;line-height:1.7;}
 
-/* ── WHY US ── */
-.why-section { background: var(--brand); }
-.why-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-.why-card {
-  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-  border-radius: var(--radius); padding: 28px 24px;
+/* ── COURSES SECTION ── */
+.courses-section{background:var(--ink2);}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:44px;}
+.filter-btn{
+  padding:8px 20px;border-radius:50px;
+  border:1px solid rgba(255,255,255,.1);
+  background:transparent;color:rgba(255,255,255,.45);
+  font-size:12px;font-weight:500;cursor:pointer;
+  transition:all .2s;font-family:var(--font-body);
+  letter-spacing:.3px;
 }
-.why-icon { font-size: 32px; margin-bottom: 16px; }
-.why-title { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
-.why-desc { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+.filter-btn:hover{border-color:rgba(255,255,255,.3);color:#fff;}
+.filter-btn.active{
+  background:var(--accent);color:#fff;
+  border-color:var(--accent);
+  box-shadow:0 4px 20px rgba(200,16,46,.4);
+}
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;background:var(--border);}
+.course-card{
+  background:var(--ink2);padding:36px;
+  cursor:pointer;position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.course-card::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 80% at 50% 0%,rgba(200,16,46,.08),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.course-card:hover{background:#0f0d1a;}
+.course-card:hover::before{opacity:1;}
+.card-num{
+  font-family:var(--font-display);font-size:11px;
+  color:rgba(255,255,255,.18);letter-spacing:2px;
+  margin-bottom:20px;
+}
+.card-icon{font-size:36px;margin-bottom:20px;display:block;}
+.card-cat{
+  font-size:10px;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:10px;
+}
+.card-title{
+  font-family:var(--font-display);font-size:24px;font-weight:600;
+  color:#fff;margin-bottom:12px;line-height:1.2;letter-spacing:-.3px;
+}
+.card-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;margin-bottom:28px;font-weight:300;}
+.card-footer{display:flex;align-items:center;justify-content:space-between;}
+.card-price{font-family:var(--font-display);font-size:26px;font-weight:600;}
+.card-arrow{
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .3s;color:rgba(255,255,255,.4);font-size:16px;
+}
+.course-card:hover .card-arrow{background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(45deg);}
+
+/* ── WHY ── */
+.why-section{
+  background:var(--ink);
+  position:relative;overflow:hidden;
+}
+.why-section::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 60% at 50% 100%,rgba(201,168,76,.05),transparent);
+}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--border);}
+.why-card{
+  background:var(--ink);padding:40px 36px;
+  position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.why-card::after{
+  content:"";position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  transform:scaleX(0);transition:transform .4s;
+}
+.why-card:hover{background:#0c0a17;}
+.why-card:hover::after{transform:scaleX(1);}
+.why-num{
+  font-family:var(--font-display);font-size:64px;font-weight:600;
+  color:rgba(255,255,255,.04);line-height:1;
+  position:absolute;top:20px;right:24px;
+}
+.why-icon-wrap{
+  width:48px;height:48px;border-radius:12px;
+  border:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin-bottom:24px;
+  background:rgba(255,255,255,.03);
+}
+.why-title{font-family:var(--font-display);font-size:20px;font-weight:600;color:#fff;margin-bottom:10px;letter-spacing:-.2px;}
+.why-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.75;font-weight:300;}
+
+/* ── INSTRUCTOR ── */
+.instructor-section{
+  background:var(--ink2);
+  position:relative;overflow:hidden;
+}
+.instructor-section::before{
+  content:"";position:absolute;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(200,16,46,.06),transparent 70%);
+  top:-200px;right:-100px;pointer-events:none;
+}
+.instructor-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.instructor-left{}
+.instructor-name-big{
+  font-family:var(--font-display);
+  font-size:clamp(52px,7vw,88px);
+  font-weight:600;line-height:.9;
+  letter-spacing:-3px;margin-bottom:20px;
+}
+.instructor-name-big .line1{display:block;color:#fff;font-style:italic;}
+.instructor-name-big .line2{display:block;color:transparent;-webkit-text-stroke:1px var(--gold);}
+.instructor-role{
+  font-size:13px;font-weight:500;letter-spacing:2px;
+  text-transform:uppercase;color:rgba(255,255,255,.35);
+  margin-bottom:32px;
+}
+.instructor-bio{font-size:15px;color:rgba(255,255,255,.5);line-height:1.85;margin-bottom:36px;font-weight:300;}
+.instructor-badges{display:flex;flex-wrap:wrap;gap:8px;}
+.inst-badge{
+  padding:7px 16px;border-radius:50px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.03);
+  font-size:12px;color:rgba(255,255,255,.5);font-weight:400;
+  transition:all .2s;
+}
+.inst-badge:hover{border-color:var(--gold);color:var(--gold2);}
+.instructor-right{}
+.expertise-list{display:flex;flex-direction:column;gap:1px;background:var(--border);}
+.exp-item{
+  background:var(--ink2);padding:24px 28px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background .2s,padding-left .2s;cursor:default;
+}
+.exp-item:hover{background:#0f0d1a;padding-left:36px;}
+.exp-title{font-family:var(--font-display);font-size:18px;font-weight:600;color:#fff;}
+.exp-sub{font-size:12px;color:rgba(255,255,255,.3);margin-top:3px;}
+.exp-icon{font-size:24px;}
+
+/* ── PAYMENT ── */
+.payment-section{background:var(--ink);}
+.payment-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:var(--border);margin-bottom:24px;}
+.payment-card{
+  background:var(--ink);padding:36px;
+  position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.payment-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;}
+.payment-card.jazz::before{background:linear-gradient(90deg,#00a651,#00c76c);}
+.payment-card.easy::before{background:linear-gradient(90deg,#f7941d,#ff6a00);}
+.payment-card.meezan::before{background:linear-gradient(90deg,#006d4c,#009965);}
+.payment-card:hover{background:#0c0a17;}
+.pay-bank{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:16px;}
+.pay-num{
+  font-family:var(--font-display);font-size:28px;font-weight:600;
+  color:#fff;letter-spacing:1px;margin-bottom:8px;
+  text-shadow:0 0 30px rgba(255,255,255,.1);
+}
+.pay-detail{font-size:13px;color:rgba(255,255,255,.3);margin-bottom:20px;}
+.pay-copy{
+  padding:9px 20px;border-radius:50px;
+  border:1px solid rgba(255,255,255,.1);
+  background:transparent;font-size:12px;font-weight:500;
+  cursor:pointer;font-family:var(--font-body);
+  transition:all .2s;color:rgba(255,255,255,.5);
+  letter-spacing:.3px;
+}
+.pay-copy:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.25);color:#fff;}
+.pay-note{
+  padding:28px 32px;
+  border:1px solid rgba(200,16,46,.2);
+  border-left:3px solid var(--accent);
+  background:rgba(200,16,46,.04);
+}
+.pay-note p{font-size:14px;color:rgba(255,255,255,.5);line-height:1.8;}
+.pay-note strong{color:#fff;font-weight:500;}
 
 /* ── CONTACT ── */
-.contact-section { background: var(--white); }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-.contact-info h3 { font-size: 28px; font-weight: 700; color: var(--dark); margin-bottom: 16px; }
-.contact-info p { font-size: 15px; color: var(--gray); line-height: 1.7; margin-bottom: 28px; }
-.contact-btns { display: flex; flex-direction: column; gap: 12px; }
-.contact-btn {
-  display: flex; align-items: center; gap: 14px;
-  padding: 16px 20px; border-radius: var(--radius-sm);
-  text-decoration: none; font-weight: 600; font-size: 14px;
-  transition: transform 0.2s;
+.contact-section{background:var(--ink2);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.contact-left h3{font-family:var(--font-display);font-size:clamp(32px,4vw,52px);font-weight:600;color:#fff;letter-spacing:-1.5px;margin-bottom:16px;line-height:1.05;}
+.contact-left p{font-size:15px;color:rgba(255,255,255,.4);line-height:1.85;margin-bottom:36px;font-weight:300;}
+.contact-channels{display:flex;flex-direction:column;gap:12px;}
+.ch-btn{
+  display:flex;align-items:center;gap:16px;
+  padding:20px 24px;border-radius:var(--r);
+  text-decoration:none;font-weight:500;font-size:14px;
+  border:1px solid rgba(255,255,255,.06);
+  background:rgba(255,255,255,.02);
+  transition:all .25s;color:#fff;
 }
-.contact-btn:hover { transform: translateX(4px); }
-.contact-btn.wa { background: #e8fdf0; color: #0d6e35; }
-.contact-btn.fb { background: #e7f0fd; color: #0a4a9e; }
-.contact-btn-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; }
-.contact-btn.wa .contact-btn-icon { background: #25D366; }
-.contact-btn.fb .contact-btn-icon { background: #1877F2; }
-.contact-form { background: var(--light); border-radius: var(--radius); padding: 32px; }
-.form-group { margin-bottom: 18px; }
-.form-label { font-size: 13px; font-weight: 600; color: var(--dark); margin-bottom: 6px; display: block; }
-.form-input, .form-textarea {
-  width: 100%; padding: 12px 16px;
-  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
-  font-family: 'Sora', sans-serif; font-size: 14px; color: var(--dark);
-  background: var(--white); transition: border-color 0.2s; outline: none;
+.ch-btn:hover{transform:translateX(6px);border-color:rgba(255,255,255,.15);}
+.ch-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.ch-btn.wa .ch-icon{background:rgba(37,211,102,.15);}
+.ch-btn.wa:hover{border-color:rgba(37,211,102,.3);}
+.ch-btn.fb .ch-icon{background:rgba(24,119,242,.15);}
+.ch-btn.fb:hover{border-color:rgba(24,119,242,.3);}
+.ch-label{font-size:15px;font-weight:500;}
+.ch-sub{font-size:12px;color:rgba(255,255,255,.3);margin-top:2px;}
+.contact-form-wrap{
+  background:rgba(255,255,255,.02);
+  border:1px solid var(--border);
+  border-radius:var(--r);padding:40px;
 }
-.form-input:focus, .form-textarea:focus { border-color: var(--accent); }
-.form-textarea { resize: vertical; min-height: 120px; }
-.form-submit {
-  width: 100%; padding: 14px;
-  background: var(--accent); color: var(--white);
-  border: none; border-radius: 50px; font-size: 15px; font-weight: 700;
-  cursor: pointer; font-family: 'Sora', sans-serif; transition: all 0.2s;
+.form-group{margin-bottom:20px;}
+.form-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.35);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;display:block;}
+.form-input,.form-textarea{
+  width:100%;padding:14px 18px;
+  border:1px solid rgba(255,255,255,.08);border-radius:10px;
+  font-family:var(--font-body);font-size:14px;color:#fff;
+  background:rgba(255,255,255,.03);
+  transition:border-color .2s,background .2s;outline:none;
 }
-.form-submit:hover { box-shadow: 0 8px 24px rgba(233,69,96,0.4); }
+.form-input:focus,.form-textarea:focus{border-color:rgba(200,16,46,.4);background:rgba(200,16,46,.03);}
+.form-input::placeholder,.form-textarea::placeholder{color:rgba(255,255,255,.2);}
+.form-textarea{resize:vertical;min-height:130px;}
+.form-submit{
+  width:100%;padding:16px;
+  background:var(--accent);color:#fff;
+  border:none;border-radius:50px;
+  font-size:13px;font-weight:600;
+  cursor:pointer;font-family:var(--font-body);
+  transition:all .3s;letter-spacing:.8px;text-transform:uppercase;
+  box-shadow:0 8px 24px rgba(200,16,46,.35);
+}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(200,16,46,.5);}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(16px);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--ink2);border:1px solid var(--border);
+  border-radius:20px;width:100%;max-width:520px;
+  overflow:hidden;animation:slideUp .35s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes slideUp{from{transform:translateY(40px) scale(.95);opacity:0;}to{transform:translateY(0) scale(1);opacity:1;}}
+.modal-top{height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;}
+.modal-top::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,var(--ink2));}
+.play-btn{
+  width:60px;height:60px;border-radius:50%;z-index:1;
+  border:1.5px solid rgba(200,16,46,.6);
+  background:rgba(200,16,46,.15);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .2s;
+}
+.play-btn:hover{background:rgba(200,16,46,.35);transform:scale(1.08);}
+.play-tri{width:0;height:0;border-top:11px solid transparent;border-bottom:11px solid transparent;border-left:19px solid var(--accent);margin-left:3px;}
+.modal-demo-lbl{font-size:11px;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase;z-index:1;}
+.modal-close-btn{position:absolute;top:14px;right:14px;z-index:2;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.06);border:none;cursor:pointer;color:rgba(255,255,255,.5);font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.modal-close-btn:hover{background:rgba(255,255,255,.12);}
+.modal-body{padding:28px;}
+.modal-cat-lbl{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.modal-title{font-family:var(--font-display);font-size:26px;font-weight:600;color:#fff;margin-bottom:12px;letter-spacing:-.3px;}
+.modal-desc{font-size:14px;color:rgba(255,255,255,.45);line-height:1.75;margin-bottom:20px;font-weight:300;}
+.modal-tags{display:flex;flex-wrap:wrap;gap:7px;}
+.modal-tag{font-size:11px;padding:5px 12px;border-radius:50px;border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.45);}
+.modal-foot{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.modal-price-lbl{font-size:11px;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.modal-price-big{font-family:var(--font-display);font-size:32px;font-weight:600;color:#fff;}
+.modal-pay-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
+.modal-pay-tag{font-size:10px;padding:2px 8px;border-radius:50px;border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.3);}
+.enroll-btn{
+  padding:14px 28px;background:var(--accent);color:#fff;
+  border:none;border-radius:50px;cursor:pointer;
+  font-size:13px;font-weight:600;
+  transition:all .2s;font-family:var(--font-body);
+  letter-spacing:.5px;white-space:nowrap;
+  box-shadow:0 6px 20px rgba(200,16,46,.4);
+}
+.enroll-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(200,16,46,.55);}
 
 /* ── FOOTER ── */
-footer {
-  background: #0d0d1a; color: rgba(255,255,255,0.5);
-  padding: 40px 5%; text-align: center;
+footer{
+  background:#060410;
+  border-top:1px solid rgba(255,255,255,.04);
+  padding:56px 5% 32px;
 }
-.footer-logo { font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 12px; }
-.footer-logo span { color: var(--accent); }
-.footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
-.footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13px; transition: color 0.2s; }
-.footer-links a:hover { color: var(--white); }
-.footer-copy { font-size: 12px; }
+.footer-inner{max-width:1200px;margin:0 auto;}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:40px;margin-bottom:48px;}
+.footer-brand .f-logo{font-family:var(--font-display);font-size:32px;font-weight:600;color:#fff;margin-bottom:10px;}
+.footer-brand .f-logo .pk{color:var(--gold);}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,.25);max-width:260px;line-height:1.7;}
+.f-col h5{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:18px;}
+.f-links{display:flex;flex-direction:column;gap:10px;}
+.f-links a{color:rgba(255,255,255,.35);text-decoration:none;font-size:14px;transition:color .2s;}
+.f-links a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.04);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.2);}
+.footer-by{font-size:12px;color:rgba(255,255,255,.2);}
+.footer-by span{color:var(--gold);}
 
-/* ── FLOAT WA ── */
-.float-wa {
-  position: fixed; bottom: 24px; right: 24px; z-index: 999;
-  background: #25D366; color: var(--white);
-  width: 56px; height: 56px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  text-decoration: none; font-size: 24px;
-  box-shadow: 0 4px 20px rgba(37,211,102,0.5);
-  transition: transform 0.2s;
+/* FLOAT WA */
+.float-wa{
+  position:fixed;bottom:28px;right:28px;z-index:999;
+  background:#25D366;color:#fff;
+  width:58px;height:58px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;font-size:24px;
+  box-shadow:0 6px 24px rgba(37,211,102,.5);
+  animation:waFloat 3s ease-in-out infinite;
 }
-.float-wa:hover { transform: scale(1.1); }
+@keyframes waFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.float-wa:hover{animation:none;transform:scale(1.1);}
 
-/* ── RESPONSIVE ── */
-@media (max-width: 768px) {
-  .nav-links, .nav-cta { display: none; }
-  .hamburger { display: flex; }
-  nav.open .nav-links {
-    display: flex; flex-direction: column;
-    position: fixed; top: 64px; left: 0; right: 0;
-    background: var(--brand); padding: 20px 5%;
-    border-top: 1px solid rgba(255,255,255,0.06);
-  }
-  nav.open .nav-cta { display: block; margin-top: 12px; text-align: center; }
-  .hero-stats { gap: 24px; }
-  .contact-grid { grid-template-columns: 1fr; }
-  .modal { max-width: 100%; }
-  .modal-footer { flex-direction: column; gap: 16px; text-align: center; }
-  .buy-btn { width: 100%; }
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .instructor-inner{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
 }
-
-.hidden { display: none !important; }
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  nav.open .nav-links{display:flex;flex-direction:column;position:fixed;top:72px;left:0;right:0;background:rgba(10,8,18,.98);padding:28px 5%;border-top:1px solid var(--border);}
+  nav.open .nav-cta{display:block;margin-top:14px;text-align:center;}
+  .hero-sub-row{flex-direction:column;gap:0;}
+  .hero-stats{flex-direction:column;gap:20px;}
+  .hero-stat{border-right:none;padding-right:0;margin-right:0;border-bottom:1px solid var(--border);padding-bottom:20px;}
+  .modal-foot{flex-direction:column;text-align:center;}
+  .enroll-btn{width:100%;}
+  .footer-top{flex-direction:column;}
+}
 </style>
 </head>
 <body>
 
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
 <!-- NAV -->
 <nav id="navbar">
-  <a href="#" class="nav-logo">Learn<span>Pro</span> PK</a>
+  <a href="#" class="nav-logo">LearnPro<span class="pk"> PK</span></a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#courses">Courses</a></li>
-    <li><a href="#why">Kyun Hamara?</a></li>
+    <li><a href="#instructor">Instructor</a></li>
+    <li><a href="#payment">Payment</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="#courses" class="nav-cta" id="navCta">Courses Dekhein</a>
-  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+  <a href="#courses" class="nav-cta" id="navCta">Enroll Now</a>
+  <div class="hamburger" onclick="document.getElementById('navbar').classList.toggle('open')">
     <span></span><span></span><span></span>
   </div>
 </nav>
@@ -375,287 +578,268 @@ footer {
 <section class="hero" id="home">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-scanlines"></div>
   <div class="hero-content">
-    <div class="hero-badge">🇵🇰 Pakistan ka No.1 Learning Platform</div>
-    <h1>Seekho, Karao,<br><span>Kamaao</span></h1>
-    <div class="hero-urdu">اردو میں سیکھو — گھر بیٹھے کماؤ</div>
-    <p>YouTube, Forex, Crypto, E-Commerce, Digital Marketing — sab kuch ek jagah, Urdu mein, professional quality mein.</p>
-    <div class="hero-btns">
-      <a href="#courses" class="btn-primary">🎓 Courses Dekhein</a>
-      <a href="https://wa.me/923001234567?text=Assalam%20o%20Alaikum!%20Course%20ke%20baare%20mein%20jaanna%20chahta%20hoon." target="_blank" class="btn-wa">💬 WhatsApp</a>
-      <a href="https://facebook.com" target="_blank" class="btn-fb">👍 Facebook</a>
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <div class="hero-eyebrow-text">Pakistan's Premier Digital Education</div>
+    </div>
+    <div class="hero-title">
+      <span class="word1">Learn</span>
+      <span class="word2">Grow</span>
+      <span class="word3">Earn</span>
+    </div>
+    <div class="hero-sub-row">
+      <div>
+        <p class="hero-desc">Master <strong>YouTube, Forex, Crypto, E-Commerce</strong> & Digital Marketing — all taught in Urdu by <strong>Asadullah Chang</strong>, Pakistan's trusted digital educator.</p>
+        <div class="hero-actions">
+          <a href="#courses" class="btn-hero btn-hero-primary">&#127891; Explore Courses</a>
+          <a href="https://wa.me/923012326400?text=Assalam%20o%20Alaikum!%20I%20want%20to%20know%20about%20your%20courses." target="_blank" class="btn-hero btn-hero-wa">&#128172; WhatsApp</a>
+          <a href="https://facebook.com" target="_blank" class="btn-hero btn-hero-ghost">&#128077; Facebook</a>
+        </div>
+      </div>
     </div>
     <div class="hero-stats">
-      <div class="stat"><div class="stat-num">6<span>+</span></div><div class="stat-label">Professional Courses</div></div>
-      <div class="stat"><div class="stat-num">100<span>%</span></div><div class="stat-label">Urdu Mein</div></div>
-      <div class="stat"><div class="stat-num">PDF<span>✓</span></div><div class="stat-label">Har Course Ke Saath</div></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span class="gold">6</span>+</div>
+        <div class="hero-stat-label">Expert Courses</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span class="gold">100</span>%</div>
+        <div class="hero-stat-label">Urdu Medium</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span class="gold">PDF</span></div>
+        <div class="hero-stat-label">Notes Included</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num"><span class="gold">&#8734;</span></div>
+        <div class="hero-stat-label">Lifetime Access</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- COURSES -->
-<section id="courses">
-  <div class="section-label">Our Courses</div>
-  <h2 class="section-title">Kaunsa Course Lena Hai?</h2>
-  <p class="section-sub">Har course mein HD videos + PDF notes + lifetime access</p>
-
-  <div class="filter-row">
-    <button class="filter-btn active" onclick="filterCourses('all', this)">Sab Courses</button>
-    <button class="filter-btn" onclick="filterCourses('earning', this)">Online Earning</button>
-    <button class="filter-btn" onclick="filterCourses('trading', this)">Trading</button>
-    <button class="filter-btn" onclick="filterCourses('ecom', this)">E-Commerce</button>
-    <button class="filter-btn" onclick="filterCourses('marketing', this)">Marketing</button>
+<section class="section courses-section" id="courses">
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><div class="eyebrow-text">Our Courses</div></div>
+    <h2 class="section-h" style="color:#fff">Choose Your<br><em style="color:var(--gold);font-style:italic">Expertise</em></h2>
+    <p class="section-sub">HD video lectures in Urdu + PDF notes + lifetime access — everything you need to start earning online.</p>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterC('all',this)">All Courses</button>
+      <button class="filter-btn" onclick="filterC('earning',this)">Online Earning</button>
+      <button class="filter-btn" onclick="filterC('trading',this)">Trading</button>
+      <button class="filter-btn" onclick="filterC('ecom',this)">E-Commerce</button>
+      <button class="filter-btn" onclick="filterC('marketing',this)">Marketing</button>
+    </div>
+    <div class="courses-grid" id="coursesGrid"></div>
   </div>
-
-  <div class="courses-grid" id="coursesGrid"></div>
 </section>
 
 <!-- WHY US -->
-<section class="why-section" id="why">
-  <div class="section-label" style="color:rgba(233,69,96,0.8)">Hamare Baare Mein</div>
-  <h2 class="section-title" style="color:var(--white)">Kyun Hamara Platform?</h2>
-  <p class="section-sub" style="color:rgba(255,255,255,0.45);margin-bottom:40px">Sirf courses nahi — complete guidance mil ti hai</p>
-  <div class="why-grid">
-    <div class="why-card">
-      <div class="why-icon">🎙️</div>
-      <div class="why-title">100% Urdu Mein</div>
-      <div class="why-desc">Saari videos Urdu mein hain — koi language barrier nahi. Aasaan zaban mein mushkil cheezein seekhein.</div>
+<section class="section why-section" id="why">
+  <div class="section-inner" style="position:relative;z-index:1">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><div class="eyebrow-text">Why Choose Us</div></div>
+    <h2 class="section-h" style="color:#fff">Everything You<br><em style="color:var(--gold);font-style:italic">Need</em></h2>
+    <p class="section-sub">Complete learning ecosystem designed for Pakistani students — practical, affordable, results-focused.</p>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-num">01</div><div class="why-icon-wrap">&#127897;</div><div class="why-title">Pure Urdu Delivery</div><div class="why-desc">Every concept taught in clear, simple Urdu. No language barrier — ever.</div></div>
+      <div class="why-card"><div class="why-num">02</div><div class="why-icon-wrap">&#128196;</div><div class="why-title">PDF Notes Included</div><div class="why-desc">Comprehensive PDF notes in English, Urdu &amp; Hindi with every single course.</div></div>
+      <div class="why-card"><div class="why-num">03</div><div class="why-icon-wrap">&#9200;</div><div class="why-title">Lifetime Access</div><div class="why-desc">Purchase once. Access forever. On any device, anytime — no expiry.</div></div>
+      <div class="why-card"><div class="why-num">04</div><div class="why-icon-wrap">&#128172;</div><div class="why-title">Direct WhatsApp Support</div><div class="why-desc">Personal responses from Asadullah Chang — your questions get answered.</div></div>
+      <div class="why-card"><div class="why-num">05</div><div class="why-icon-wrap">&#127942;</div><div class="why-title">Completion Certificate</div><div class="why-desc">Professional certificate upon completing each course — proof of your skills.</div></div>
+      <div class="why-card"><div class="why-num">06</div><div class="why-icon-wrap">&#128176;</div><div class="why-title">Affordable Pricing</div><div class="why-desc">Premium education at prices accessible to every Pakistani student.</div></div>
     </div>
-    <div class="why-card">
-      <div class="why-icon">📄</div>
-      <div class="why-title">PDF Notes Bhi Milte Hain</div>
-      <div class="why-desc">Har course ke saath complete PDF notes — English, Urdu, Hindi. Kabhi bhi reference kar sakte hain.</div>
+  </div>
+</section>
+
+<!-- INSTRUCTOR -->
+<section class="section instructor-section" id="instructor">
+  <div class="section-inner">
+    <div class="instructor-inner">
+      <div class="instructor-left">
+        <div class="eyebrow"><div class="eyebrow-dot"></div><div class="eyebrow-text">Your Instructor</div></div>
+        <div class="instructor-name-big">
+          <span class="line1">Asadullah</span>
+          <span class="line2">Chang</span>
+        </div>
+        <div class="instructor-role">Digital Education Expert &amp; Online Business Strategist</div>
+        <p class="instructor-bio">With deep expertise spanning digital marketing, financial markets, and e-commerce, Asadullah Chang has dedicated himself to empowering Pakistan's youth with the skills to earn online. Practical, simple, results-focused — that is the LearnPro PK promise.</p>
+        <div class="instructor-badges">
+          <span class="inst-badge">&#128250; YouTube Expert</span>
+          <span class="inst-badge">&#128200; Stock &amp; Forex Trader</span>
+          <span class="inst-badge">&#8383; Crypto Specialist</span>
+          <span class="inst-badge">&#128722; E-Commerce Pro</span>
+          <span class="inst-badge">&#128226; Digital Marketer</span>
+        </div>
+      </div>
+      <div class="instructor-right">
+        <div class="expertise-list">
+          <div class="exp-item"><div><div class="exp-title">YouTube Mastery</div><div class="exp-sub">Channel building to monetization</div></div><div class="exp-icon">&#128250;</div></div>
+          <div class="exp-item"><div><div class="exp-title">PSX &amp; Forex Trading</div><div class="exp-sub">Technical &amp; fundamental analysis</div></div><div class="exp-icon">&#128200;</div></div>
+          <div class="exp-item"><div><div class="exp-title">Cryptocurrency</div><div class="exp-sub">Bitcoin, DeFi, safe investing</div></div><div class="exp-icon">&#8383;</div></div>
+          <div class="exp-item"><div><div class="exp-title">E-Commerce</div><div class="exp-sub">Amazon, Shopify, Daraz</div></div><div class="exp-icon">&#128722;</div></div>
+          <div class="exp-item"><div><div class="exp-title">Digital Marketing</div><div class="exp-sub">FB, YT, TikTok, Instagram, X, Telegram</div></div><div class="exp-icon">&#128226;</div></div>
+        </div>
+      </div>
     </div>
-    <div class="why-card">
-      <div class="why-icon">⏰</div>
-      <div class="why-title">Lifetime Access</div>
-      <div class="why-desc">Ek baar kharidein — hamesha ke liye access. Videos kabhi bhi, kahin bhi dekh sakte hain.</div>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section class="section payment-section" id="payment">
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><div class="eyebrow-text">Secure Payment</div></div>
+    <h2 class="section-h" style="color:#fff">Easy Payment<br><em style="color:var(--gold);font-style:italic">Methods</em></h2>
+    <p class="section-sub">Send payment via any method below — receive your course password within 30 minutes.</p>
+    <div class="payment-grid">
+      <div class="payment-card jazz">
+        <div class="pay-bank">JazzCash</div>
+        <div class="pay-num">0301&#8209;2326400</div>
+        <div class="pay-detail">Account Title: Asadullah</div>
+        <button class="pay-copy" onclick="copyNum('0301-2326400','JazzCash')">Copy Number</button>
+      </div>
+      <div class="payment-card easy">
+        <div class="pay-bank">EasyPaisa</div>
+        <div class="pay-num">0305&#8209;3419827</div>
+        <div class="pay-detail">Account Title: Asadullah</div>
+        <button class="pay-copy" onclick="copyNum('0305-3419827','EasyPaisa')">Copy Number</button>
+      </div>
+      <div class="payment-card meezan">
+        <div class="pay-bank">Meezan Bank</div>
+        <div class="pay-num" style="font-size:20px">2742011340401</div>
+        <div class="pay-detail">IBAN: PK83 MEZN 0027420113340401</div>
+        <div class="pay-detail">Account Title: Asadullah</div>
+        <button class="pay-copy" onclick="copyNum('PK83MEZN0027420113340401','IBAN')" style="margin-top:12px">Copy IBAN</button>
+      </div>
     </div>
-    <div class="why-card">
-      <div class="why-icon">💬</div>
-      <div class="why-title">WhatsApp Support</div>
-      <div class="why-desc">Koi bhi sawaal ho — directly WhatsApp pe poochein. Hum aapki madad ke liye hamesha available hain.</div>
+    <div class="pay-note">
+      <p>&#128241; After payment, send screenshot to WhatsApp <strong>0301&#8209;2326400</strong> with the course name. Your access password will be delivered within <strong style="color:var(--accent)">30 minutes</strong>.</p>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="contact-section" id="contact">
-  <div class="contact-grid">
-    <div class="contact-info">
-      <div class="section-label">Contact Karein</div>
-      <h3>Koi Sawaal Hai?</h3>
-      <p>Course ke baare mein koi bhi sawaal ho — WhatsApp ya Facebook pe seedha contact karein. Hum 24 ghante mein jawab dein ge.</p>
-      <div class="contact-btns">
-        <a href="https://wa.me/923001234567?text=Assalam%20o%20Alaikum!%20Course%20ke%20baare%20mein%20poochna%20tha." target="_blank" class="contact-btn wa">
-          <div class="contact-btn-icon">💬</div>
-          <div><div>WhatsApp pe Message Karein</div><small style="font-weight:400;font-size:12px;color:#0d6e35;opacity:0.7">+92 300 1234567</small></div>
-        </a>
-        <a href="https://facebook.com" target="_blank" class="contact-btn fb">
-          <div class="contact-btn-icon" style="background:#1877F2;font-size:16px">f</div>
-          <div><div>Facebook Page Visit Karein</div><small style="font-weight:400;font-size:12px;color:#0a4a9e;opacity:0.7">LearnPro PK</small></div>
-        </a>
+<section class="section contact-section" id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <div class="eyebrow"><div class="eyebrow-dot"></div><div class="eyebrow-text">Get In Touch</div></div>
+        <h3>Have a<br><em style="color:var(--gold);font-style:italic">Question?</em></h3>
+        <p>Need help choosing the right course, or have a question about payment? Asadullah Chang personally responds to every message.</p>
+        <div class="contact-channels">
+          <a href="https://wa.me/923012326400?text=Assalam%20o%20Alaikum!%20I%20have%20a%20question%20about%20your%20courses." target="_blank" class="ch-btn wa">
+            <div class="ch-icon">&#128172;</div>
+            <div><div class="ch-label">Chat on WhatsApp</div><div class="ch-sub">+92 301&#8209;2326400 — Personal Response</div></div>
+          </a>
+          <a href="https://facebook.com" target="_blank" class="ch-btn fb">
+            <div class="ch-icon" style="font-weight:800;font-size:18px;color:#1877F2">f</div>
+            <div><div class="ch-label">Follow on Facebook</div><div class="ch-sub">LearnPro PK — Updates &amp; Announcements</div></div>
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="contact-form">
-      <h4 style="font-size:18px;font-weight:700;margin-bottom:20px;">Message Bhejein</h4>
-      <div class="form-group">
-        <label class="form-label">Aapka Naam</label>
-        <input type="text" class="form-input" placeholder="Jaise: Ahmed Ali">
+      <div class="contact-form-wrap">
+        <div style="font-family:var(--font-display);font-size:26px;font-weight:600;color:#fff;margin-bottom:28px;letter-spacing:-.5px">Send a Message</div>
+        <div class="form-group"><label class="form-label">Full Name</label><input type="text" class="form-input" placeholder="Your name"></div>
+        <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" class="form-input" placeholder="+92 300 0000000"></div>
+        <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Ask about any course or payment..."></textarea></div>
+        <button class="form-submit" onclick="alert('Thank you! Asadullah Chang will respond shortly.')">Send Message</button>
       </div>
-      <div class="form-group">
-        <label class="form-label">Phone Number</label>
-        <input type="tel" class="form-input" placeholder="+92 300 0000000">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Sawaal ya Message</label>
-        <textarea class="form-textarea" placeholder="Course ke baare mein poochein..."></textarea>
-      </div>
-      <button class="form-submit" onclick="submitForm()">Message Bhejein ✉️</button>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Learn<span>Pro</span> PK</div>
-  <div class="footer-links">
-    <a href="#home">Home</a>
-    <a href="#courses">Courses</a>
-    <a href="#why">About</a>
-    <a href="#contact">Contact</a>
-    <a href="https://wa.me/923001234567" target="_blank">WhatsApp</a>
-    <a href="https://facebook.com" target="_blank">Facebook</a>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="f-logo">LearnPro<span class="pk"> PK</span></div>
+        <p>Pakistan's premier Urdu online learning platform. Empowering the next generation of digital earners.</p>
+      </div>
+      <div class="f-col"><h5>Platform</h5><div class="f-links"><a href="#courses">All Courses</a><a href="#instructor">Instructor</a><a href="#payment">Payment</a><a href="#contact">Contact</a></div></div>
+      <div class="f-col"><h5>Courses</h5><div class="f-links"><a href="#courses">YouTube</a><a href="#courses">PSX Stocks</a><a href="#courses">Forex</a><a href="#courses">Crypto</a><a href="#courses">E-Commerce</a><a href="#courses">Marketing</a></div></div>
+      <div class="f-col"><h5>Connect</h5><div class="f-links"><a href="https://wa.me/923012326400" target="_blank">WhatsApp</a><a href="https://facebook.com" target="_blank">Facebook</a></div></div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&#169; 2026 LearnPro PK &#8212; All Rights Reserved | Pakistan</div>
+      <div class="footer-by">Designed &amp; Taught by <span>Asadullah Chang</span></div>
+    </div>
   </div>
-  <p class="footer-copy">© 2024 LearnPro PK — Sab Haqooq Mahfooz | Pakistan</p>
 </footer>
 
-<!-- FLOAT WA -->
-<a href="https://wa.me/923001234567?text=Assalam%20o%20Alaikum!%20Course%20ke%20baare%20mein%20poochna%20tha." target="_blank" class="float-wa" title="WhatsApp pe baat karein">💬</a>
+<a href="https://wa.me/923012326400?text=Assalam%20o%20Alaikum!" target="_blank" class="float-wa">&#128172;</a>
 
-<!-- COURSE MODAL -->
-<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeM()">
   <div class="modal">
-    <div class="modal-video" id="modalVideo">
-      <button class="modal-close" onclick="closeModalBtn()">✕</button>
-      <div class="play-ring" onclick="playDemo()"><div class="play-tri"></div></div>
-      <div class="modal-demo-label">Demo Video — Free Preview</div>
+    <div class="modal-top" id="modalTop">
+      <button class="modal-close-btn" onclick="closeM()">&#10005;</button>
+      <div class="play-btn" onclick="playDemo()"><div class="play-tri"></div></div>
+      <div class="modal-demo-lbl">Free Preview</div>
     </div>
     <div class="modal-body">
-      <div class="modal-cat" id="modalCat"></div>
-      <div class="modal-title" id="modalTitle"></div>
-      <div class="modal-desc" id="modalDesc"></div>
-      <div class="modal-includes" id="modalIncludes"></div>
+      <div class="modal-cat-lbl" id="mCat"></div>
+      <div class="modal-title" id="mTitle"></div>
+      <div class="modal-desc" id="mDesc"></div>
+      <div class="modal-tags" id="mTags"></div>
     </div>
-    <div class="modal-footer">
+    <div class="modal-foot">
       <div>
-        <div class="modal-price"><small>Sirf</small><span id="modalPrice"></span></div>
-        <div class="pay-methods-row">
-          <span class="pay-tag">JazzCash</span>
-          <span class="pay-tag">EasyPaisa</span>
-          <span class="pay-tag">Bank Transfer</span>
-        </div>
+        <div class="modal-price-lbl">Course Fee</div>
+        <div class="modal-price-big" id="mPrice"></div>
+        <div class="modal-pay-tags"><span class="modal-pay-tag">JazzCash</span><span class="modal-pay-tag">EasyPaisa</span><span class="modal-pay-tag">Meezan Bank</span></div>
       </div>
-      <button class="buy-btn" id="modalBuyBtn">Abhi Kharidein 🔐</button>
+      <button class="enroll-btn" id="mEnroll">Enroll Now &#8594;</button>
     </div>
   </div>
 </div>
 
 <script>
-const courses = [
-  {
-    id: 1, cat: 'earning', catLabel: 'Online Earning', emoji: '▶️',
-    bg: 'linear-gradient(135deg,#1a1a2e,#16213e)',
-    catColor: '#e94560',
-    name: 'YouTube Master Course',
-    desc: 'Channel banana, monetization, growth strategy — sab Urdu mein.',
-    fullDesc: 'YouTube se ghar baithe kamaane ka complete guide. Channel setup se lekar monetization tak — har cheez step by step samjhayi jaaye gi. 8 HD videos + complete PDF notes.',
-    price: 'Rs. 1,999',
-    includes: ['8 HD Lectures', 'PDF Notes', 'Lifetime Access', 'WhatsApp Support', 'Certificate']
-  },
-  {
-    id: 2, cat: 'trading', catLabel: 'Trading', emoji: '📈',
-    bg: 'linear-gradient(135deg,#0f3460,#1a4a7a)',
-    catColor: '#4a9eff',
-    name: 'PSX Stock Course',
-    desc: 'Pakistan Stock Exchange mein invest karna seekhein — beginner se advance.',
-    fullDesc: 'PSX pe stocks kaise kharidein, kab bechein, technical analysis kaise karein — yeh sab ek comprehensive course mein. Risk management bhi seekhein ge.',
-    price: 'Rs. 2,499',
-    includes: ['10 HD Lectures', 'PDF Notes', 'Lifetime Access', 'WhatsApp Support', 'Live Q&A']
-  },
-  {
-    id: 3, cat: 'trading', catLabel: 'Trading', emoji: '💱',
-    bg: 'linear-gradient(135deg,#1b2838,#2a3f55)',
-    catColor: '#00c9a7',
-    name: 'Forex Trading Course',
-    desc: 'Currency pairs, chart analysis, MT4/MT5, risk management — expert level.',
-    fullDesc: 'Forex market kya hai, kaise kaam karta hai, pairs kaise select karein, stop loss kya hota hai — sab kuch beginner-friendly Urdu mein. Real examples ke saath.',
-    price: 'Rs. 2,999',
-    includes: ['12 HD Lectures', 'PDF Notes', 'Lifetime Access', 'WhatsApp Support', 'Chart Guide']
-  },
-  {
-    id: 4, cat: 'trading', catLabel: 'Trading', emoji: '₿',
-    bg: 'linear-gradient(135deg,#2d1b00,#4a2f00)',
-    catColor: '#f5a623',
-    name: 'Crypto Course',
-    desc: 'Bitcoin, Ethereum, DeFi, wallets — safely invest karna seekhein.',
-    fullDesc: 'Cryptocurrency kya hai, Bitcoin kaise kharidein, wallet kaise banayein, scams se kaise bachein — Pakistan mein crypto safely use karne ka mukammal guide.',
-    price: 'Rs. 1,999',
-    includes: ['8 HD Lectures', 'PDF Notes', 'Lifetime Access', 'WhatsApp Support', 'Wallet Guide']
-  },
-  {
-    id: 5, cat: 'ecom', catLabel: 'E-Commerce', emoji: '🛒',
-    bg: 'linear-gradient(135deg,#0d2b1f,#1a4a35)',
-    catColor: '#4caf82',
-    name: 'E-Commerce Course',
-    desc: 'Amazon, Shopify, Daraz — products list karna aur sales banana.',
-    fullDesc: 'E-commerce ka complete guide — Amazon pe seller account, Shopify store setup, Daraz pe listing, products kahan se lein, pricing kaise karein, marketing kaise karein.',
-    price: 'Rs. 3,499',
-    includes: ['14 HD Lectures', 'PDF Notes', 'Lifetime Access', 'WhatsApp Support', 'Store Setup Guide']
-  },
-  {
-    id: 6, cat: 'marketing', catLabel: 'Digital Marketing', emoji: '📣',
-    bg: 'linear-gradient(135deg,#2d0b1a,#4a1530)',
-    catColor: '#ff6b9d',
-    name: 'Digital Marketing Course',
-    desc: 'Facebook, YouTube, Instagram, TikTok, X, Telegram — sab ek course mein.',
-    fullDesc: 'Har platform pe marketing kaise karein — Facebook Ads, YouTube channel, Instagram reels, TikTok viral, X marketing, Telegram channel grow karna — complete digital marketing course.',
-    price: 'Rs. 2,499',
-    includes: ['16 HD Lectures', 'PDF Notes', 'Lifetime Access', 'WhatsApp Support', 'Ad Templates']
-  }
+// Cursor
+var cur=document.getElementById("cursor"),ring=document.getElementById("cursorRing");
+document.addEventListener("mousemove",function(e){cur.style.left=e.clientX+"px";cur.style.top=e.clientY+"px";setTimeout(function(){ring.style.left=e.clientX+"px";ring.style.top=e.clientY+"px";},60);});
+
+// Nav scroll
+window.addEventListener("scroll",function(){document.getElementById("navbar").classList.toggle("scrolled",window.scrollY>40);});
+
+// Courses
+var courses=[
+  {id:1,cat:"earning",catLabel:"Online Earning",icon:"&#9654;&#65039;",accent:"#e94560",bg:"linear-gradient(135deg,#1a0a14,#2d1020)",name:"YouTube Master Course",desc:"Build, grow and monetize your YouTube channel.",full:"Complete YouTube guide — channel setup, content strategy, SEO, and AdSense monetization. All in clear Urdu. 8 HD lectures + PDF notes.",price:"Rs. 1,999",tags:["8 HD Lectures","PDF Notes","Lifetime Access","WhatsApp Support","Certificate"]},
+  {id:2,cat:"trading",catLabel:"Stock Trading",icon:"&#128200;",accent:"#4a9eff",bg:"linear-gradient(135deg,#081428,#0f2040)",name:"PSX Stock Course",desc:"Invest confidently in Pakistan Stock Exchange.",full:"Buy and sell PSX stocks confidently. Technical analysis, risk management, and portfolio building — real examples in Urdu.",price:"Rs. 2,499",tags:["10 HD Lectures","PDF Notes","Lifetime Access","WhatsApp Support","Live Q&A"]},
+  {id:3,cat:"trading",catLabel:"Forex Trading",icon:"&#128178;",accent:"#00c9a7",bg:"linear-gradient(135deg,#081820,#0d2a30)",name:"Forex Trading Course",desc:"Trade global currencies professionally.",full:"Forex from basics to advanced. Currency pairs, MT4/MT5, candlestick patterns, risk management — complete Urdu guide.",price:"Rs. 2,999",tags:["12 HD Lectures","PDF Notes","Lifetime Access","WhatsApp Support","Chart Guide"]},
+  {id:4,cat:"trading",catLabel:"Cryptocurrency",icon:"&#8383;",accent:"#f5a623",bg:"linear-gradient(135deg,#1a0e00,#2e1a00)",name:"Crypto Investment Course",desc:"Navigate crypto markets safely and profitably.",full:"Bitcoin, Ethereum, DeFi, wallets — safe investing in Pakistan. Avoid scams, invest wisely — comprehensive Urdu course.",price:"Rs. 1,999",tags:["8 HD Lectures","PDF Notes","Lifetime Access","WhatsApp Support","Wallet Guide"]},
+  {id:5,cat:"ecom",catLabel:"E-Commerce",icon:"&#128722;",accent:"#4caf82",bg:"linear-gradient(135deg,#061812,#0d2a1e)",name:"E-Commerce Mastery",desc:"Sell on Amazon, Shopify and Daraz.",full:"Amazon seller account, Shopify setup, Daraz listing — product sourcing, pricing and scaling. Full Urdu guide.",price:"Rs. 3,499",tags:["14 HD Lectures","PDF Notes","Lifetime Access","WhatsApp Support","Store Checklist"]},
+  {id:6,cat:"marketing",catLabel:"Digital Marketing",icon:"&#128226;",accent:"#c77dff",bg:"linear-gradient(135deg,#14082a,#1e0e3a)",name:"Digital Marketing Course",desc:"Master Facebook, TikTok, YouTube & more.",full:"Facebook Ads, YouTube, Instagram, TikTok, X, Telegram — complete digital marketing course in Urdu.",price:"Rs. 2,499",tags:["16 HD Lectures","PDF Notes","Lifetime Access","WhatsApp Support","Ad Templates"]}
 ];
-
-let activeCourse = null;
-
-function renderCourses(filter) {
-  const grid = document.getElementById('coursesGrid');
-  const filtered = filter === 'all' ? courses : courses.filter(c => c.cat === filter);
-  grid.innerHTML = filtered.map(c => `
-    <div class="course-card" onclick="openCourse(${c.id})">
-      <div class="card-thumb" style="background:${c.bg}">
-        <span style="font-size:52px;position:relative;z-index:1">${c.emoji}</span>
-      </div>
-      <div class="card-body">
-        <div class="card-cat" style="color:${c.catColor}">${c.catLabel}</div>
-        <div class="card-title">${c.name}</div>
-        <div class="card-desc">${c.desc}</div>
-        <div class="card-footer">
-          <div class="card-price" style="color:${c.catColor}">${c.price}</div>
-          <button class="card-btn" style="background:${c.catColor};color:#fff">Demo Dekhein</button>
-        </div>
-      </div>
-    </div>
-  `).join('');
+function renderC(f){
+  var g=document.getElementById("coursesGrid");
+  var list=f==="all"?courses:courses.filter(function(c){return c.cat===f;});
+  g.innerHTML=list.map(function(c,i){return'<div class="course-card" onclick="openC('+c.id+')"><div class="card-num">0'+(i+1)+'</div><div class="card-icon">'+c.icon+'</div><div class="card-cat" style="color:'+c.accent+'">'+c.catLabel+'</div><div class="card-title">'+c.name+'</div><div class="card-desc">'+c.desc+'</div><div class="card-footer"><div class="card-price" style="color:'+c.accent+'">'+c.price+'</div><div class="card-arrow">&#8594;</div></div></div>';}).join("");
 }
-
-function filterCourses(cat, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderCourses(cat);
+function filterC(cat,btn){document.querySelectorAll(".filter-btn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");renderC(cat);}
+function openC(id){
+  var c=courses.find(function(x){return x.id===id;});
+  document.getElementById("mCat").textContent=c.catLabel;
+  document.getElementById("mCat").style.color=c.accent;
+  document.getElementById("mTitle").textContent=c.name;
+  document.getElementById("mDesc").textContent=c.full;
+  document.getElementById("mPrice").textContent=c.price;
+  document.getElementById("mTags").innerHTML=c.tags.map(function(t){return'<span class="modal-tag">&#10003; '+t+'</span>';}).join("");
+  document.getElementById("modalTop").style.background=c.bg;
+  document.getElementById("mEnroll").onclick=function(){buyNow(c);};
+  document.getElementById("modal").classList.add("open");
+  document.body.style.overflow="hidden";
 }
-
-function openCourse(id) {
-  const c = courses.find(x => x.id === id);
-  activeCourse = c;
-  document.getElementById('modalCat').textContent = c.catLabel;
-  document.getElementById('modalCat').style.color = c.catColor;
-  document.getElementById('modalTitle').textContent = c.name;
-  document.getElementById('modalDesc').textContent = c.fullDesc;
-  document.getElementById('modalPrice').textContent = c.price;
-  document.getElementById('modalIncludes').innerHTML = c.includes.map(i => `<span class="include-tag">✓ ${i}</span>`).join('');
-  document.getElementById('modalVideo').style.background = c.bg;
-  document.getElementById('modalBuyBtn').onclick = () => buyNow(c);
-  document.getElementById('modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal(e) {
-  if (e.target === document.getElementById('modal')) { doClose(); }
-}
-function closeModalBtn() { doClose(); }
-function doClose() {
-  document.getElementById('modal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function buyNow(c) {
-  const msg = `Assalam o Alaikum! Main ${c.name} (${c.price}) kharidna chahta hoon. Please payment details dein.`;
-  window.open(`https://wa.me/923001234567?text=${encodeURIComponent(msg)}`, '_blank');
-}
-
-function playDemo() {
-  alert('Demo video — course kharidne ke baad poori videos unlock ho jaati hain!\n\nPayment ke liye WhatsApp karein: +92 300 1234567');
-}
-
-function toggleMenu() {
-  document.getElementById('navbar').classList.toggle('open');
-}
-
-function submitForm() {
-  alert('Shukriya! Aapka message hamare paas pahunch gaya. Hum jald hi aapko reply karein ge. 🙏');
-}
-
-renderCourses('all');
+function closeM(){document.getElementById("modal").classList.remove("open");document.body.style.overflow="";}
+function playDemo(){alert("Demo preview available after enrollment.\n\nJazzCash: 0301-2326400\nEasyPaisa: 0305-3419827\n\nWhatsApp after payment: 0301-2326400");}
+function buyNow(c){var m="Assalam o Alaikum! I want to enroll in "+c.name+" ("+c.price+"). Please send payment details.";window.open("https://wa.me/923012326400?text="+encodeURIComponent(m),"_blank");}
+function copyNum(n,name){if(navigator.clipboard){navigator.clipboard.writeText(n).then(function(){alert(name+" copied: "+n);});}else{alert(name+": "+n);}}
+renderC("all");
 </script>
 </body>
 </html>
