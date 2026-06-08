@@ -833,58 +833,26 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
         <div class="rc-verified">&#10003; Verified Student &mdash; Peshawar</div>
       </div>
 
-    <!-- REVIEW SUBMIT FORM -->
-    <div class="review-form-wrap" id="reviewForm" style="margin-top:48px">
+    
+    <!-- REVIEW SUBMIT FORM — Google Form Embedded -->
+    <div class="review-form-wrap" id="reviewForm" style="margin-top:48px;overflow:hidden;">
       <div class="rfh">
         <div class="rfh-icon">&#9998;</div>
         <div>
           <div class="rfh-title">Share Your Experience</div>
-          <div class="rfh-sub">Your review helps other students make the right choice</div>
+          <div class="rfh-sub">Your review is saved permanently &amp; visible to everyone</div>
         </div>
       </div>
-      <div class="rfb" id="rfBody">
-        <div class="rf-grid">
-          <div class="rf-grp">
-            <label class="rf-lbl">Your Full Name</label>
-            <input type="text" class="rf-inp" id="rfName" placeholder="e.g. Ahmed Ali">
-          </div>
-          <div class="rf-grp">
-            <label class="rf-lbl">Your City</label>
-            <input type="text" class="rf-inp" id="rfCity" placeholder="e.g. Lahore">
-          </div>
-          <div class="rf-grp">
-            <label class="rf-lbl">Which Course?</label>
-            <select class="rf-sel" id="rfCourse">
-              <option value="">Select a course...</option>
-              <option>YouTube Master Course</option>
-              <option>PSX Stock Course</option>
-              <option>Forex Trading Course</option>
-              <option>Crypto Investment Course</option>
-              <option>E-Commerce Mastery</option>
-              <option>Digital Marketing Course</option>
-            </select>
-          </div>
-          <div class="rf-grp">
-            <label class="rf-lbl">Your Rating</label>
-            <div class="star-picker" id="starPicker">
-              <input type="radio" name="star" id="s5" value="5"><label for="s5">&#9733;</label>
-              <input type="radio" name="star" id="s4" value="4"><label for="s4">&#9733;</label>
-              <input type="radio" name="star" id="s3" value="3"><label for="s3">&#9733;</label>
-              <input type="radio" name="star" id="s2" value="2"><label for="s2">&#9733;</label>
-              <input type="radio" name="star" id="s1" value="1"><label for="s1">&#9733;</label>
-            </div>
-          </div>
-          <div class="rf-grp full">
-            <label class="rf-lbl">Your Review</label>
-            <textarea class="rf-txt" id="rfText" placeholder="Share your experience — what did you learn? How did this course help you? (min 20 characters)"></textarea>
-          </div>
-        </div>
-        <button class="rf-submit" onclick="submitReview()">&#10003; Submit My Review</button>
+      <div style="position:relative;background:#fff;">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeVDMvSIChx_iLx4n84q_Rl3jD48Kja3gRI6jj1JOQWo-_fNw/viewform?embedded=true"
+          width="100%" height="680" frameborder="0" marginheight="0" marginwidth="0"
+          style="display:block;border:none;">
+          Loading form...
+        </iframe>
       </div>
-      <div class="rf-success" id="rfSuccess">
-        <div class="rf-success-icon">&#127881;</div>
-        <div class="rf-success-title">Shukriya for Your Review!</div>
-        <p class="rf-success-sub">Your review has been added below.<br>Jazak Allah Khair for helping other students!</p>
+      <div style="padding:14px 20px;background:#f8f6f2;border-top:1px solid #e4e0d8;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+        <p style="font-size:12px;color:#7a758a;margin:0;">&#10003; Reviews are saved to Google Sheets &amp; visible publicly</p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeVDMvSIChx_iLx4n84q_Rl3jD48Kja3gRI6jj1JOQWo-_fNw/viewform?usp=publish-editor" target="_blank" style="font-size:12px;color:#c8102e;font-weight:600;text-decoration:none;">Open in new tab &#8594;</a>
       </div>
     </div>
     <div class="dynamic-reviews" id="dynReviews"></div>
@@ -1233,17 +1201,19 @@ function loadReviews(){
     .then(function(data){
       var container=document.getElementById('dynReviews');
       if(!container)return;
-      // Only add new ones
       var newOnes=data.filter(function(r){
         return !loadedReviews.find(function(l){return l.name===r.name&&l.review===r.review;});
       });
+      newOnes.reverse();
       newOnes.forEach(function(r){
         loadedReviews.push(r);
         var card=buildCard(r,false);
         container.appendChild(card);
       });
     })
-    .catch(function(){});
+    .catch(function(err){
+      console.log('Sheet load error:',err);
+    });
 }
 
 function buildCard(r, isNew){
