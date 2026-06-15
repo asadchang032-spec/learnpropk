@@ -671,6 +671,7 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
     <li><a href="#inst">Instructor</a></li>
     <li><a href="#payment">Payment</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#access">My Course</a></li>
   </ul>
   <a href="#courses" class="nav-enroll" id="ne">Enroll Now</a>
   <div class="hbg" onclick="document.getElementById('nav').classList.toggle('open')"><span></span><span></span><span></span></div>
@@ -987,6 +988,68 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
 </section>
 
 <!-- FOOTER -->
+
+<!-- COURSE ACCESS SECTION -->
+<section class="sec" id="access" style="background:var(--ink2);">
+  <div class="sec-in">
+    <div class="eyebrow"><div class="e-dot"></div><div class="e-txt">Course Access</div></div>
+    <h2 class="sec-h" style="color:#fff">Already Enrolled? <em>Access Your Course</em></h2>
+    <p class="sec-sub" style="color:rgba(255,255,255,.4)">Enter your password to access your purchased course videos.</p>
+    
+    <div style="max-width:500px;margin:0 auto;">
+      <!-- Password Form -->
+      <div id="accessForm" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:32px;">
+        <div style="font-family:var(--fd);font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;">Enter Access Password</div>
+        <p style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:24px;">After payment, you receive your password on WhatsApp within 30 minutes.</p>
+        
+        <div style="margin-bottom:16px;">
+          <label style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:8px;">Select Course</label>
+          <select id="courseSelect" style="width:100%;padding:12px 16px;border:1px solid rgba(255,255,255,.1);border-radius:9px;font-family:var(--fb);font-size:14px;color:#fff;background:rgba(255,255,255,.05);outline:none;appearance:none;">
+            <option value="">Choose your course...</option>
+            <option value="yt2024">YouTube Master Course</option>
+            <option value="forex2024">Forex Trading Course</option>
+            <option value="crypto2024">Crypto Investment Course</option>
+            <option value="psx2024">PSX Stock Course</option>
+            <option value="ecom2024">E-Commerce Mastery</option>
+            <option value="marketing2024">Digital Marketing Course</option>
+          </select>
+        </div>
+        
+        <div style="margin-bottom:20px;">
+          <label style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:8px;">Access Password</label>
+          <input type="password" id="pwInput" placeholder="Enter your password" style="width:100%;padding:12px 16px;border:1px solid rgba(255,255,255,.1);border-radius:9px;font-family:var(--fb);font-size:14px;color:#fff;background:rgba(255,255,255,.05);outline:none;">
+        </div>
+        
+        <button onclick="checkPassword()" style="width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--fb);letter-spacing:.8px;text-transform:uppercase;">
+          Access My Course &rarr;
+        </button>
+        
+        <p style="font-size:12px;color:rgba(255,255,255,.3);text-align:center;margin-top:16px;">
+          Don't have a password? <a href="https://wa.me/923012326400?text=I want to enroll in a course" target="_blank" style="color:var(--gold2);text-decoration:none;">WhatsApp us to enroll</a>
+        </p>
+      </div>
+      
+      <!-- Success State -->
+      <div id="accessSuccess" style="display:none;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:32px;text-align:center;">
+        <div style="font-size:48px;margin-bottom:16px;">🎉</div>
+        <div style="font-family:var(--fd);font-size:24px;font-weight:700;color:#fff;margin-bottom:8px;">Access Granted!</div>
+        <p style="font-size:14px;color:rgba(255,255,255,.5);margin-bottom:24px;">Your course is ready. Click below to start learning!</p>
+        <a id="courseLink" href="#" target="_blank" style="display:block;padding:14px;background:var(--red);color:#fff;border-radius:50px;font-size:14px;font-weight:700;text-decoration:none;margin-bottom:12px;">
+          &#9654; Start Watching Course
+        </a>
+        <button onclick="resetAccess()" style="background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.5);padding:8px 16px;border-radius:50px;font-size:12px;cursor:pointer;font-family:var(--fb);">
+          Go Back
+        </button>
+      </div>
+      
+      <!-- Wrong Password -->
+      <div id="accessError" style="display:none;background:rgba(200,16,46,.1);border:1px solid rgba(200,16,46,.3);border-radius:12px;padding:16px;margin-top:12px;text-align:center;">
+        <p style="font-size:14px;color:#ff6b6b;">❌ Wrong password! Please check and try again, or <a href="https://wa.me/923012326400" target="_blank" style="color:var(--gold2);">contact us on WhatsApp</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="foot-in">
     <div class="ftop">
@@ -1338,6 +1401,80 @@ function submitReview(){
     document.getElementById('rfText').value='';
     document.querySelectorAll('input[name="star"]').forEach(function(r){r.checked=false;});
   },4000);
+}
+
+
+
+// Course passwords and links
+var coursePasswords = {
+  'yt2024': {
+    password: 'YTLPK2024',
+    link: 'https://www.youtube.com/playlist?list=PLlrgGVrQkLPKwKqnWJ7h1NWAeimhXSqMP',
+    name: 'YouTube Master Course'
+  },
+  'forex2024': {
+    password: 'FXLPK2024',
+    link: '#',
+    name: 'Forex Trading Course'
+  },
+  'crypto2024': {
+    password: 'CRLPK2024',
+    link: '#',
+    name: 'Crypto Investment Course'
+  },
+  'psx2024': {
+    password: 'PSXLPK2024',
+    link: '#',
+    name: 'PSX Stock Course'
+  },
+  'ecom2024': {
+    password: 'ECLPK2024',
+    link: '#',
+    name: 'E-Commerce Mastery'
+  },
+  'marketing2024': {
+    password: 'MKLPK2024',
+    link: '#',
+    name: 'Digital Marketing Course'
+  }
+};
+
+function checkPassword() {
+  var course = document.getElementById('courseSelect').value;
+  var pw = document.getElementById('pwInput').value.trim().toUpperCase();
+  var errorEl = document.getElementById('accessError');
+  
+  errorEl.style.display = 'none';
+  
+  if (!course) {
+    alert('Please select a course first!');
+    return;
+  }
+  
+  if (!pw) {
+    alert('Please enter your password!');
+    return;
+  }
+  
+  var courseData = coursePasswords[course];
+  
+  if (pw === courseData.password) {
+    // Show success
+    document.getElementById('accessForm').style.display = 'none';
+    document.getElementById('accessSuccess').style.display = 'block';
+    document.getElementById('courseLink').href = courseData.link;
+    document.getElementById('courseLink').textContent = '▶ Start ' + courseData.name;
+  } else {
+    errorEl.style.display = 'block';
+  }
+}
+
+function resetAccess() {
+  document.getElementById('accessForm').style.display = 'block';
+  document.getElementById('accessSuccess').style.display = 'none';
+  document.getElementById('accessError').style.display = 'none';
+  document.getElementById('pwInput').value = '';
+  document.getElementById('courseSelect').value = '';
 }
 
 </script>
