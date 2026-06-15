@@ -671,6 +671,7 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
     <li><a href="#inst">Instructor</a></li>
     <li><a href="#payment">Payment</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#pdf-notes">PDF Notes</a></li>
     <li><a href="#access">My Course</a></li>
   </ul>
   <a href="#courses" class="nav-enroll" id="ne">Enroll Now</a>
@@ -989,6 +990,56 @@ footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.04); padd
 
 <!-- FOOTER -->
 
+
+<!-- PDF NOTES SECTION -->
+<section class="sec" id="pdf-notes" style="background:var(--off2);">
+  <div class="sec-in">
+    <div class="eyebrow"><div class="e-dot"></div><div class="e-txt">PDF Notes</div></div>
+    <h2 class="sec-h">Course <em>PDF Notes</em></h2>
+    <p class="sec-sub">Enrolled students ko PDF notes milti hain — aapke course ke saath bilkul free!</p>
+    
+    <div style="max-width:600px;">
+      
+      <!-- PDF Access Form -->
+      <div id="pdfForm" style="background:var(--white);border-radius:var(--r);border:1.5px solid var(--bdr);padding:28px;box-shadow:var(--sh);">
+        <div style="font-family:var(--fd);font-size:20px;font-weight:800;color:var(--text);margin-bottom:8px;">&#128196; Download PDF Notes</div>
+        <p style="font-size:13px;color:var(--t3);margin-bottom:22px;">Enter your course password to download PDF notes.</p>
+        
+        <div style="margin-bottom:14px;">
+          <label style="font-size:10px;font-weight:700;color:var(--t3);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:7px;">Select Course</label>
+          <select id="pdfCourseSelect" style="width:100%;padding:12px 15px;border:1.5px solid var(--bdr);border-radius:9px;font-family:var(--fb);font-size:14px;color:var(--text);background:var(--off);outline:none;">
+            <option value="">Choose your course...</option>
+            <option value="yt2024">YouTube Master Course</option>
+            <option value="forex2024">Forex Trading Course</option>
+            <option value="crypto2024">Crypto Investment Course</option>
+            <option value="psx2024">PSX Stock Course</option>
+            <option value="ecom2024">E-Commerce Mastery</option>
+            <option value="marketing2024">Digital Marketing Course</option>
+          </select>
+        </div>
+        
+        <div style="margin-bottom:18px;">
+          <label style="font-size:10px;font-weight:700;color:var(--t3);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:7px;">Access Password</label>
+          <input type="password" id="pdfPwInput" placeholder="Enter your password" style="width:100%;padding:12px 15px;border:1.5px solid var(--bdr);border-radius:9px;font-family:var(--fb);font-size:14px;color:var(--text);background:var(--off);outline:none;">
+        </div>
+        
+        <button onclick="downloadPDF()" style="width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--fb);letter-spacing:.8px;text-transform:uppercase;box-shadow:0 5px 18px rgba(200,16,46,.28);">
+          &#11015; Download PDF Notes
+        </button>
+        
+        <div id="pdfError" style="display:none;margin-top:12px;padding:12px;background:rgba(200,16,46,.08);border-radius:9px;border:1px solid rgba(200,16,46,.2);text-align:center;">
+          <p style="font-size:13px;color:var(--red);">&#10060; Wrong password! <a href="https://wa.me/923012326400" target="_blank" style="color:var(--red);font-weight:700;">WhatsApp us</a> for help.</p>
+        </div>
+        
+        <p style="font-size:12px;color:var(--t3);text-align:center;margin-top:14px;">
+          Don't have a password? <a href="https://wa.me/923012326400?text=I want to enroll" target="_blank" style="color:var(--red);font-weight:600;">Enroll via WhatsApp</a>
+        </p>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
 <!-- COURSE ACCESS SECTION -->
 <section class="sec" id="access" style="background:var(--ink2);">
   <div class="sec-in">
@@ -1231,12 +1282,12 @@ if(statsEl)statsObs.observe(statsEl);
 
 // ── Video modal
 var videoIds={
-  1:'dQw4w9WgXcQ',
-  2:'dQw4w9WgXcQ',
-  3:'dQw4w9WgXcQ',
-  4:'dQw4w9WgXcQ',
-  5:'dQw4w9WgXcQ',
-  6:'dQw4w9WgXcQ'
+  1:'AruPQd0lZrA',
+  2:'AruPQd0lZrA',
+  3:'AruPQd0lZrA',
+  4:'AruPQd0lZrA',
+  5:'AruPQd0lZrA',
+  6:'AruPQd0lZrA'
 };
 function openVM(id,name){
   document.getElementById('vtitle').textContent=name+' — Free Preview';
@@ -1475,6 +1526,40 @@ function resetAccess() {
   document.getElementById('accessError').style.display = 'none';
   document.getElementById('pwInput').value = '';
   document.getElementById('courseSelect').value = '';
+}
+
+
+
+// PDF Links per course
+var pdfLinks = {
+  'yt2024': 'https://drive.google.com/file/d/YOUR_PDF_ID/view',
+  'forex2024': '#',
+  'crypto2024': '#',
+  'psx2024': '#',
+  'ecom2024': '#',
+  'marketing2024': '#'
+};
+
+function downloadPDF() {
+  var course = document.getElementById('pdfCourseSelect').value;
+  var pw = document.getElementById('pdfPwInput').value.trim().toUpperCase();
+  var errEl = document.getElementById('pdfError');
+  errEl.style.display = 'none';
+  
+  if (!course) { alert('Please select a course!'); return; }
+  if (!pw) { alert('Please enter your password!'); return; }
+  
+  var courseData = coursePasswords[course];
+  if (pw === courseData.password) {
+    var link = pdfLinks[course];
+    if (link === '#') {
+      alert('PDF for this course is coming soon! Contact WhatsApp: 0301-2326400');
+    } else {
+      window.open(link, '_blank');
+    }
+  } else {
+    errEl.style.display = 'block';
+  }
 }
 
 </script>
