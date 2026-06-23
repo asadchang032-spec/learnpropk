@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /learnpropk/
+
+# Sitemap location
+Sitemap: https://asadchang032-spec.github.io/learnpropk/sitemap.xml
+
+# Google Bot
+User-agent: Googlebot
+Allow: /learnpropk/
